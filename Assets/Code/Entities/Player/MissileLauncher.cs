@@ -7,8 +7,8 @@ namespace Entities.Player
     {
         [SerializeField] private int maxMissileCount;
 
-        private int currentMissileCount;
-        public bool CanShoot => currentMissileCount > 0;
+        private int _currentMissileCount;
+        public bool CanShoot => _currentMissileCount > 0;
 
         void Start()
         {
@@ -18,7 +18,7 @@ namespace Entities.Player
 
         public void RefreshMissileCount()
         {
-            currentMissileCount = maxMissileCount;
+            _currentMissileCount = maxMissileCount;
 
         }
 
@@ -29,7 +29,7 @@ namespace Entities.Player
                 var missile = EntityManager.Instance.UnitFactory.CreateUnit(transform.position, targetPosition) as Missile;
                 missile.SetTeam(0);
                 missile.SetSpeed(3f);
-                currentMissileCount--;
+                _currentMissileCount--;
             }
         }
     }

@@ -14,14 +14,14 @@ namespace Entities.Enemy
         [SerializeField] private Vector2 targetCenterPosition;
         [SerializeField] private Vector2 targetRange;
         
-        private Vector2 flyPosition;
+        private Vector2 _flyPosition;
 
-        private int maxBombCount = 2;
-        private int currentBombCount = 0;
-        private bool CanThrowBombs => currentBombCount > 0;
+        private readonly int _maxBombCount = 2;
+        private int _currentBombCount = 0;
+        private bool CanThrowBombs => _currentBombCount > 0;
 
-        private float minThrowBombDelay = 1f;
-        private float maxThrowBombDelay = 4f;
+        private readonly float _minThrowBombDelay = 1f;
+        private readonly float _maxThrowBombDelay = 4f;
 
         void Awake()
         {
@@ -31,10 +31,10 @@ namespace Entities.Enemy
 
         public override void Initialize(Vector2 targetPosition)
         {
-            flyPosition = targetPosition;
+            _flyPosition = targetPosition;
             SetLookDirection();
             gameObject.SetActive(true);
-            currentBombCount = maxBombCount;
+            _currentBombCount = _maxBombCount;
             StartCoroutine(ThrowBomb());
         }
 
@@ -47,11 +47,11 @@ namespace Entities.Enemy
         {
             while (CanThrowBombs)
             {
-                yield return new WaitForSeconds(UnityEngine.Random.Range(minThrowBombDelay, maxThrowBombDelay));
+                yield return new WaitForSeconds(UnityEngine.Random.Range(_minThrowBombDelay, _maxThrowBombDelay));
                 var missile = EntityManager.Instance.UnitFactory.CreateUnit(transform.position, GetBombTargetPosition()) as Missile;
                 missile.SetTeam(1);
                 missile.SetSpeed(1f);
-                currentBombCount--;
+                _currentBombCount--;
             }
         }
 
@@ -63,7 +63,7 @@ namespace Entities.Enemy
         Vector2 GetDirectionToFlyTarget()
         {
             var position = transform.position;
-            return (new Vector2(position.x, position.y) - flyPosition).normalized;
+            return (new Vector2(position.x, position.y) - _flyPosition).normalized;
         }
 
         void SetLookDirection()
@@ -74,7 +74,7 @@ namespace Entities.Enemy
         void Move()
         {
             transform.position += transform.right * 0.03f * (GetDirectionToFlyTarget().x < 0 ? 1 : -1);
-            if (Vector2.Distance(transform.position, flyPosition) < 0.1f)
+            if (Vector2.Distance(transform.position, _flyPosition) < 0.1f)
             {
                 Hide();
             }

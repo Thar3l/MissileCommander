@@ -9,11 +9,11 @@ namespace GameEvents
     {
         public struct PlaneStartEndPosition
         {
-            public Vector2 startPosition;
-            public Vector2 endPosition;
+            public Vector2 StartPosition;
+            public Vector2 EndPosition;
         }
         
-        [SerializeField] private Airplane _airplane;
+        [SerializeField] private Airplane airplane;
         [SerializeField] Vector2[] planeStartPositions;
     
         private void OnDrawGizmos()
@@ -43,22 +43,22 @@ namespace GameEvents
             
             return new PlaneStartEndPosition
                 {
-                    startPosition = planeStartPositions[startIndex],
-                    endPosition = planeStartPositions[endIndex]
+                    StartPosition = planeStartPositions[startIndex],
+                    EndPosition = planeStartPositions[endIndex]
                 };
         }
     
         public void Execute()
         {
             var startEndPos = GetPlaneStartAndTargetPosition();
-            _airplane.transform.position = startEndPos.startPosition;
-            _airplane.Initialize(startEndPos.endPosition);
+            airplane.transform.position = startEndPos.StartPosition;
+            airplane.Initialize(startEndPos.EndPosition);
             Debug.Log("Starting Airplane game event.");
         }
     
         public bool IsRunning()
         {
-            return _airplane.gameObject.activeSelf;
+            return airplane.gameObject.activeSelf;
         }
     }
 }

@@ -5,13 +5,13 @@ namespace Entities
     public class Missile : ExplosiveUnit
     {
         [SerializeField] private TrailRenderer trailRenderer;
-        private Vector2 explodePosition;
-        private float speed;
+        private Vector2 _explodePosition;
+        private float _speed;
 
         public override void Initialize(Vector2 targetPosition)
         {
-            explodePosition = targetPosition;
-            SetLookDirection(explodePosition);
+            _explodePosition = targetPosition;
+            SetLookDirection(_explodePosition);
             gameObject.SetActive(true);
             trailRenderer.Clear();
         }
@@ -40,18 +40,18 @@ namespace Entities
     
         float GetSpeed()
         {
-            return speed;
+            return _speed;
         }
     
         public void SetSpeed(float speed)
         {
-            this.speed = speed;
+            this._speed = speed;
         }
     
         public void Move()
         {
             transform.position += transform.up * GetSpeed() * Time.fixedDeltaTime;
-            if (Vector2.Distance(transform.position, explodePosition) < 0.1f)
+            if (Vector2.Distance(transform.position, _explodePosition) < 0.1f)
             {
                 Explode();
             }

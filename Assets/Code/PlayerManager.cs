@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class PlayerManager : Singleton<PlayerManager>
 {
-    private List<Entity> buildingList;
+    private List<Entity> _buildingList;
     [SerializeField] private Vector2[] missileLauncherSpawnPoints;
     [SerializeField] private Vector2[] citySpawnPoints;
 
@@ -33,7 +33,7 @@ public class PlayerManager : Singleton<PlayerManager>
     
     public bool Initialize()
     {
-        buildingList = new List<Entity>();
+        _buildingList = new List<Entity>();
         InputController.Instance.BindKey(KeyCode.Mouse0, Shoot);
         GameManager.Instance.OnGameStart += RefreshMissileLaunchers;
         GameManager.Instance.OnGameStart += RefreshCities;
@@ -43,12 +43,12 @@ public class PlayerManager : Singleton<PlayerManager>
 
     List<MissileLauncher> GetMissileLauncherList()
     {
-        return buildingList.OfType<MissileLauncher>().ToList();
+        return _buildingList.OfType<MissileLauncher>().ToList();
     }
     
     List<City> GetCityList()
     {
-        return buildingList.OfType<City>().ToList();
+        return _buildingList.OfType<City>().ToList();
     }
 
     void StartNewRound()
@@ -84,12 +84,12 @@ public class PlayerManager : Singleton<PlayerManager>
 
     void SpawnMissileLaunchers()
     {
-        Spawn(missileLauncherPrefab, missileLauncherSpawnPoints, ref buildingList);
+        Spawn(missileLauncherPrefab, missileLauncherSpawnPoints, ref _buildingList);
     }
     
     void SpawnCities()
     {
-        Spawn(cityPrefab, citySpawnPoints, ref buildingList);
+        Spawn(cityPrefab, citySpawnPoints, ref _buildingList);
         foreach (var city in GetCityList())
             city.OnHitEntity += (x) => Die();
     }

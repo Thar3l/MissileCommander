@@ -19,9 +19,9 @@ namespace Entities.Enemy
         [SerializeField] private float spawnDelay;
         [SerializeField] private int spawnCountPerGame;
 
-        private UnitFactory factory;
-        private int leftSpawnCount;
-        public bool CanSpawn => leftSpawnCount > 0;
+        private UnitFactory _factory;
+        private int _leftSpawnCount;
+        public bool CanSpawn => _leftSpawnCount > 0;
         
         private void OnDrawGizmos()
         {
@@ -37,25 +37,25 @@ namespace Entities.Enemy
             GameManager.Instance.OnGameStart += StartSpawn;
             GameManager.Instance.OnGameNewRound += StartSpawn;
             GameManager.Instance.OnGameStop += Stop;
-            factory = EntityManager.Instance.UnitFactory;
+            _factory = EntityManager.Instance.UnitFactory;
         }
 
         void Stop()
         {
-            leftSpawnCount = 0;
+            _leftSpawnCount = 0;
             StopCoroutine(Spawn());
         }
 
         void Reset()
         {
             StopCoroutine(Spawn());
-            leftSpawnCount = spawnCountPerGame;
+            _leftSpawnCount = spawnCountPerGame;
         }
 
         public void StartSpawn()
         {
             Reset();
-            leftSpawnCount = spawnCountPerGame;
+            _leftSpawnCount = spawnCountPerGame;
             StartCoroutine(Spawn());
         }
 
@@ -63,9 +63,9 @@ namespace Entities.Enemy
         {
             while (CanSpawn)
             {
-                var missile = factory.CreateUnit(PickRandomSpawnPosition(), PickRandomTargetPosition());
+                var missile = _factory.CreateUnit(PickRandomSpawnPosition(), PickRandomTargetPosition());
                 SetSpawnedMissileProperties(missile as Missile);
-                leftSpawnCount--;
+                _leftSpawnCount--;
                 yield return new WaitForSeconds(spawnDelay);
             }
         }

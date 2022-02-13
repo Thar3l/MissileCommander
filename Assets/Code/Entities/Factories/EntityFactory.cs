@@ -7,7 +7,6 @@ namespace Entities.Factories
     public abstract class EntityFactory<T> where T : Entity
     {
         protected readonly ObjectPooler<T> EntityPooler;
-        public List<T> entityList;
         
         #region events
         public delegate void CreateEntityEvent(T entity);
@@ -18,7 +17,6 @@ namespace Entities.Factories
 
         protected EntityFactory(T prefab)
         {
-            entityList = new List<T>();
             EntityPooler = new ObjectPooler<T>(prefab);
             EntityPooler.OnCreateNewInstance += SetNewEntityProperties;
         }
@@ -31,7 +29,6 @@ namespace Entities.Factories
 
         protected void DestroyEntity(T entity)
         {
-            entityList.Remove(entity);
             EntityPooler.AddObject(entity);
             OnDestroyEntityEvent?.Invoke(entity);
         }
@@ -40,7 +37,6 @@ namespace Entities.Factories
         {
             var entity = EntityPooler.GetObject();
             entity.transform.position = spawnPosition;
-            entityList.Add(entity);
             OnCreateEntityEvent?.Invoke(entity);
             return entity;
         }

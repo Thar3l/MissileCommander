@@ -15,14 +15,13 @@ public class EntityManager : Singleton<EntityManager>
     
     [Header("Prefabs")]
     [SerializeField] private Missile missilePrefab;
-    [SerializeField] private Airplane airplanePrefab;
     [SerializeField] private Explosion explosionPrefab;
 
     public UnitFactory UnitFactory;
     public ExplosionFactory ExplosionFactory;
 
-    private List<Entity> entityList;
-    private GameRoundListener unitStateListener;
+    private List<Entity> _entityList;
+    private GameRoundListener _unitStateListener;
 
     public bool Initialize()
     {
@@ -34,7 +33,7 @@ public class EntityManager : Singleton<EntityManager>
 
     void CreateInstances()
     {
-        entityList = new List<Entity>();
+        _entityList = new List<Entity>();
         ExplosionFactory = new ExplosionFactory(explosionPrefab);
         UnitFactory = new UnitFactory(missilePrefab, SpawnExplosion);
     }
@@ -49,7 +48,7 @@ public class EntityManager : Singleton<EntityManager>
 
     void CreateUnitStateListener()
     {
-        unitStateListener = GameManager.Instance.GameRoundChecker.AddListener();
+        _unitStateListener = GameManager.Instance.GameRoundChecker.AddListener();
     }
 
     void SpawnExplosion(ExplosiveUnit explodedUnit)
@@ -60,30 +59,30 @@ public class EntityManager : Singleton<EntityManager>
 
     public void AddEntity(Entity entity)
     {
-        entityList.Add(entity);
+        _entityList.Add(entity);
     }
 
     bool AreThereAnyEnemyUnits()
     {
-        return entityList?.Where(x => x is Missile && x.GetTeam() == 1).ToList().Count > 0 || missileSpawner.CanSpawn;
+        var enemyMissileList = _entityList?.Where(x => x is Missile && x.GetTeam() == 1).ToList();
+        return enemyMissileList?.Count > 0 || missileSpawner.CanSpawn;
     }
-
     public void RemoveEntity(Entity entity)
     {
-        entityList.Remove(entity);
+        _entityList.Remove(entity);
         if (!AreThereAnyEnemyUnits())
-            unitStateListener?.NotifyChecker();
+            _unitStateListener?.NotifyChecker();
     }
 
     void Reset()
     {
-        unitStateListener = null;
+        _unitStateListener = null;
         DestroyAllEntities();
     }
 
     private void DestroyAllEntities()
     {
-        foreach (var entity in entityList.Reverse<Entity>())
+        foreach (var entity in _entityList.Reverse<Entity>())
             entity.Destroy();
     }
 }

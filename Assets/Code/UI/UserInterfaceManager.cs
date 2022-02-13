@@ -6,11 +6,11 @@ namespace UI
 {
     public class UserInterfaceManager : Singleton<UserInterfaceManager>
     {
-        [SerializeField] private MainMenu _mainMenu;
+        [SerializeField] private MainMenu mainMenu;
 
         public bool Initialize()
         {
-            GameManager.Instance.OnGameStop += _mainMenu.Show;
+            GameManager.Instance.OnGameStop += mainMenu.Show;
             return true;
         }
     }

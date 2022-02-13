@@ -5,7 +5,7 @@ namespace Entities
 {
     public abstract class Entity : MonoBehaviour
     {
-        private int team;
+        private int _team;
 
         public delegate void HitEntity(Entity entity);
         public event HitEntity OnHitEntity;
@@ -15,12 +15,12 @@ namespace Entities
     
         public virtual void SetTeam(int team)
         {
-            this.team = team;
+            _team = team;
         }
 
         public int GetTeam()
         {
-            return team;
+            return _team;
         }
 
         public void Destroy()
