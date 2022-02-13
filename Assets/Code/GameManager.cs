@@ -29,7 +29,6 @@ public class GameManager : Singleton<GameManager>
         yield return new WaitUntil(UserInterfaceManager.Instance.Initialize);
         yield return new WaitUntil(EntityManager.Instance.Initialize);
         yield return new WaitUntil(PlayerManager.Instance.Initialize);
-        // StartGame();
     }
 
     public void StartGame()

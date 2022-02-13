@@ -8,8 +8,6 @@ using UnityEngine;
 public class PlayerManager : Singleton<PlayerManager>
 {
     private List<Entity> buildingList;
-    // private List<MissileLauncher> missileLauncherList;
-    // private List<City> cityList;
     [SerializeField] private Vector2[] missileLauncherSpawnPoints;
     [SerializeField] private Vector2[] citySpawnPoints;
 

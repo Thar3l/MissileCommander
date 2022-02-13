@@ -7,8 +7,7 @@ namespace Entities
         [SerializeField] private TrailRenderer trailRenderer;
         private Vector2 explodePosition;
         private float speed;
-    
-    
+
         public override void Initialize(Vector2 targetPosition)
         {
             explodePosition = targetPosition;
@@ -16,7 +15,7 @@ namespace Entities
             gameObject.SetActive(true);
             trailRenderer.Clear();
         }
-    
+
         private void FixedUpdate()
         {
             Move();
