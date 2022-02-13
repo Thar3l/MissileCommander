@@ -5,16 +5,31 @@ namespace Entities.Player
 {
     public class MissileLauncher : Entity
     {
-        [SerializeField] private Camera cam;
+        [SerializeField] private int maxMissileCount;
 
-        void Update()
+        private int currentMissileCount;
+        public bool CanShoot => currentMissileCount > 0;
+
+        void Start()
         {
-            if (Input.GetKeyDown(KeyCode.Mouse0))
+            RefreshMissileCount();
+            OnHitEntity += (entity) => gameObject.SetActive(false);
+        }
+
+        public void RefreshMissileCount()
+        {
+            currentMissileCount = maxMissileCount;
+
+        }
+
+        public void LaunchMissile(Vector2 targetPosition)
+        {
+            if (CanShoot)
             {
-                var worldPos = Utils.MousePositionToWorldPoint(cam, Input.mousePosition);
-                var missile = EntityManager.Instance.UnitFactory.CreateUnit(transform.position, worldPos) as Missile;
+                var missile = EntityManager.Instance.UnitFactory.CreateUnit(transform.position, targetPosition) as Missile;
                 missile.SetTeam(0);
-                missile.SetSpeed(0.08f);
+                missile.SetSpeed(3f);
+                currentMissileCount--;
             }
         }
     }

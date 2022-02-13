@@ -4,17 +4,18 @@ using UnityEngine.Events;
 namespace Entities.Factories{
     public class UnitFactory : EntityFactory<ExplosiveUnit>
     {
-        private UnityAction<Transform> spawnExplosionAction;
+        private UnityAction<ExplosiveUnit> spawnExplosionAction;
         
-        public UnitFactory(ExplosiveUnit prefab, UnityAction<Transform> spawnExplosionAction) : base(prefab)
+        public UnitFactory(ExplosiveUnit prefab, UnityAction<ExplosiveUnit> spawnExplosionAction) : base(prefab)
         {
             this.spawnExplosionAction = spawnExplosionAction;
         }
 
         protected override void SetNewEntityProperties(ExplosiveUnit obj)
         {
+            base.SetNewEntityProperties(obj);
             obj.OnExplosion += (entity) => DestroyEntity(obj);
-            obj.OnExplosion += (entity) => spawnExplosionAction(obj.transform);
+            obj.OnExplosion += (entity) => spawnExplosionAction(obj);
             obj.transform.SetParent(EntityManager.Instance.transform);
         }
         

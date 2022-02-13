@@ -8,7 +8,7 @@ namespace Entities {
 
         void Awake()
         {
-            OnHitEntity += (entity) => Explode();
+            OnHitEntity += (x) => Explode();
         }
 
         public abstract void Initialize(Vector2 targetPosition);

@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 using Random = UnityEngine.Random;
 using Entities.Factories;
+using GameUtils;
 
 namespace Entities.Enemy
 {
@@ -20,6 +21,7 @@ namespace Entities.Enemy
 
         private UnitFactory factory;
         private int leftSpawnCount;
+        public bool CanSpawn => leftSpawnCount > 0;
         
         private void OnDrawGizmos()
         {
@@ -33,30 +35,33 @@ namespace Entities.Enemy
         public void Init()
         {
             GameManager.Instance.OnGameStart += StartSpawn;
-            GameManager.Instance.OnGameStop += Reset;
+            GameManager.Instance.OnGameNewRound += StartSpawn;
+            GameManager.Instance.OnGameStop += Stop;
             factory = EntityManager.Instance.UnitFactory;
+        }
+
+        void Stop()
+        {
+            leftSpawnCount = 0;
+            StopCoroutine(Spawn());
         }
 
         void Reset()
         {
-            leftSpawnCount = spawnCountPerGame;
             StopCoroutine(Spawn());
+            leftSpawnCount = spawnCountPerGame;
         }
 
         public void StartSpawn()
         {
+            Reset();
             leftSpawnCount = spawnCountPerGame;
             StartCoroutine(Spawn());
         }
 
-        bool CanSpawn()
-        {
-            return leftSpawnCount > 0;
-        }
-
         IEnumerator Spawn()
         {
-            while (CanSpawn())
+            while (CanSpawn)
             {
                 var missile = factory.CreateUnit(PickRandomSpawnPosition(), PickRandomTargetPosition());
                 SetSpawnedMissileProperties(missile as Missile);
@@ -68,25 +73,17 @@ namespace Entities.Enemy
         void SetSpawnedMissileProperties(Missile missile)
         {
             missile.SetTeam(1);
-            missile.SetSpeed(0.04f);
+            missile.SetSpeed(1f);
         }
 
         Vector2 PickRandomSpawnPosition()
         {
-            return PickRandomPositionFromRange(transform.position, spawnRange);
+            return Utils.PickRandomPositionFromRange(transform.position, spawnRange);
         }
         
-        Vector2 PickRandomTargetPosition()
+        public Vector2 PickRandomTargetPosition()
         {
-            return PickRandomPositionFromRange(targetCenterPosition, targetRange);
-        }
-        
-        Vector2 PickRandomPositionFromRange(Vector2 center, Vector2 range)
-        {
-            return new Vector2(
-                center.x + Random.Range(-range.x/2, range.x/2),
-                center.y + Random.Range(-range.y/2, range.y/2)
-            );
+            return Utils.PickRandomPositionFromRange(targetCenterPosition, targetRange);
         }
     }
 }

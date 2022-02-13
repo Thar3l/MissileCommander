@@ -7,17 +7,25 @@ namespace Entities
     {
         private int team;
 
-        protected delegate void HitEntity(Entity entity);
-        protected event HitEntity OnHitEntity;
+        public delegate void HitEntity(Entity entity);
+        public event HitEntity OnHitEntity;
+
+        public delegate void DestroyEntity(Entity entity);
+        public event DestroyEntity OnDestroyEntity;
     
         public virtual void SetTeam(int team)
         {
             this.team = team;
         }
 
-        protected int GetTeam()
+        public int GetTeam()
         {
             return team;
+        }
+
+        public void Destroy()
+        {
+            OnDestroyEntity?.Invoke(this);
         }
 
         private void OnTriggerEnter2D(Collider2D col)

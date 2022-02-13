@@ -10,6 +10,7 @@ namespace Entities.Factories
 
         protected override void SetNewEntityProperties(Explosion obj)
         {
+            base.SetNewEntityProperties(obj);
             obj.OnEndExplosion += (entity) => DestroyEntity(obj);
             obj.transform.SetParent(EntityManager.Instance.transform);
         }

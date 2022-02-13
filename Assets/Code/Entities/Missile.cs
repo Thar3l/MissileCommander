@@ -49,9 +49,9 @@ namespace Entities
             this.speed = speed;
         }
     
-        void Move()
+        public void Move()
         {
-            transform.position += transform.up * GetSpeed();
+            transform.position += transform.up * GetSpeed() * Time.fixedDeltaTime;
             if (Vector2.Distance(transform.position, explodePosition) < 0.1f)
             {
                 Explode();

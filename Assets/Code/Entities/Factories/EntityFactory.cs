@@ -1,28 +1,47 @@
+using System.Collections.Generic;
 using UnityEngine;
 using GameUtils;
 
 namespace Entities.Factories
 {
-    public abstract class EntityFactory<T> where T : MonoBehaviour
+    public abstract class EntityFactory<T> where T : Entity
     {
         protected readonly ObjectPooler<T> EntityPooler;
+        public List<T> entityList;
+        
+        #region events
+        public delegate void CreateEntityEvent(T entity);
+        public event CreateEntityEvent OnCreateEntityEvent;
+        public delegate void DestroyEntityEvent(T entity);
+        public event DestroyEntityEvent OnDestroyEntityEvent;
+        #endregion
 
         protected EntityFactory(T prefab)
         {
+            entityList = new List<T>();
             EntityPooler = new ObjectPooler<T>(prefab);
             EntityPooler.OnCreateNewInstance += SetNewEntityProperties;
         }
-        protected abstract void SetNewEntityProperties(T obj);
+
+        protected virtual void SetNewEntityProperties(T obj)
+        {
+            obj.OnDestroyEntity += (x) => DestroyEntity(obj);
+        }
+        
 
         protected void DestroyEntity(T entity)
         {
+            entityList.Remove(entity);
             EntityPooler.AddObject(entity);
+            OnDestroyEntityEvent?.Invoke(entity);
         }
 
         protected T CreateEntity(Vector2 spawnPosition)
         {
             var entity = EntityPooler.GetObject();
             entity.transform.position = spawnPosition;
+            entityList.Add(entity);
+            OnCreateEntityEvent?.Invoke(entity);
             return entity;
         }
     }
