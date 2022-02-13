@@ -30,11 +30,11 @@ namespace Entities
 
         private void OnTriggerEnter2D(Collider2D col)
         {
-            var entity = col.GetComponent<Entity>();
-            if (entity && GetTeam() != entity.GetTeam() ||
+            var otherEntity = col.GetComponent<Entity>();
+            if (otherEntity && GetTeam() != otherEntity.GetTeam() ||
                 col.CompareTag("Ground"))
             {
-                OnHitEntity?.Invoke(entity);
+                OnHitEntity?.Invoke(otherEntity);
             }
         }
     }
