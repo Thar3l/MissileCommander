@@ -1074,6 +1074,76 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1728867040
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1728867041}
+  - component: {fileID: 1728867043}
+  - component: {fileID: 1728867042}
+  m_Layer: 0
+  m_Name: PlayerBuildings
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1728867041
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1728867040}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1913621795}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1728867042
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1728867040}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73cc12d27ee54d67990f5d5184b93256, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  missileLauncherSpawnPoints:
+  - {x: 0, y: -3.75}
+  - {x: -6, y: -3.75}
+  - {x: 6, y: -3.75}
+  citySpawnPoints:
+  - {x: 8, y: -3.75}
+  - {x: 4, y: -3.75}
+  - {x: 2, y: -3.75}
+  - {x: -2, y: -3.75}
+  - {x: -4, y: -3.75}
+  - {x: -8, y: -3.75}
+  missileLauncherPrefab: {fileID: 5244579942594529105, guid: 606a74e2db7e8ae45b5e88b5d8f1b0d1, type: 3}
+  cityPrefab: {fileID: 7973964946945775930, guid: 420d641d3bc9177408c05bdc1c44dc43, type: 3}
+--- !u!114 &1728867043
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1728867040}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d491c04aa837487c93716e4f7a8b1b6a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buildingsHelper: {fileID: 1728867042}
 --- !u!1 &1767539768
 GameObject:
   m_ObjectHideFlags: 0
@@ -1155,7 +1225,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 1728867041}
   m_Father: {fileID: 115786165}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1171,19 +1242,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84112af852c3cf64d82640002fdab519, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  missileLauncherSpawnPoints:
-  - {x: 0, y: -3.72}
-  - {x: -6, y: -3.72}
-  - {x: 6, y: -3.72}
-  citySpawnPoints:
-  - {x: -8, y: -3.72}
-  - {x: -4, y: -3.72}
-  - {x: -2, y: -3.72}
-  - {x: 2, y: -3.72}
-  - {x: 4, y: -3.72}
-  - {x: 8, y: -3.72}
-  missileLauncherPrefab: {fileID: 5244579942594529105, guid: 606a74e2db7e8ae45b5e88b5d8f1b0d1, type: 3}
-  cityPrefab: {fileID: 7973964946945775930, guid: 420d641d3bc9177408c05bdc1c44dc43, type: 3}
+  playerBuildings: {fileID: 1728867043}
 --- !u!4 &1990414049 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 750384768106810162, guid: e5756b9ab36abe24fa9b4ab55218a24a, type: 3}
