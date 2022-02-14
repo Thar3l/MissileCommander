@@ -19,10 +19,10 @@ public class GameManager : Singleton<GameManager>
     private void Awake()
     {
         GameRoundChecker = new GameRoundChecker();
-        StartCoroutine(LoadGame());
+        StartCoroutine(LoadGameCoroutine());
     }
 
-    IEnumerator LoadGame()
+    IEnumerator LoadGameCoroutine()
     {
         yield return new WaitUntil(UserInterfaceManager.Instance.Initialize);
         yield return new WaitUntil(EntityManager.Instance.Initialize);

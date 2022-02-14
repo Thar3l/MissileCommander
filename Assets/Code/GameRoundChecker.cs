@@ -46,7 +46,7 @@ public class GameRoundChecker
     {
         if (CheckGameRound())
         {
-            Debug.Log("new round");
+            Debug.Log("Starting new round");
             ResetListeners();
             GameManager.Instance.StartNewRound();
         }

@@ -39,15 +39,15 @@ namespace Entities.Enemy
             _factory = EntityManager.Instance.MissileFactory;
         }
 
-        void Stop()
+        private void Stop()
         {
             _leftSpawnCount = 0;
-            StopCoroutine(Spawn());
+            StopCoroutine(SpawnCoroutine());
         }
 
-        void Reset()
+        private void Reset()
         {
-            StopCoroutine(Spawn());
+            StopCoroutine(SpawnCoroutine());
             _leftSpawnCount = spawnCountPerGame;
         }
 
@@ -55,32 +55,37 @@ namespace Entities.Enemy
         {
             Reset();
             _leftSpawnCount = spawnCountPerGame;
-            StartCoroutine(Spawn());
+            StartCoroutine(SpawnCoroutine());
         }
 
-        IEnumerator Spawn()
+        IEnumerator SpawnCoroutine()
         {
             while (CanSpawn)
             {
-                var missile = _factory.CreateUnit(PickRandomSpawnPosition(), PickRandomTargetPosition());
-                SetSpawnedMissileProperties(missile as Missile);
-                _leftSpawnCount--;
+                SpawnMissile();
                 yield return new WaitForSeconds(spawnDelay);
             }
         }
 
-        void SetSpawnedMissileProperties(Missile missile)
+        private void SpawnMissile()
+        {
+            var missile = _factory.CreateUnit(PickRandomSpawnPosition(), PickRandomTargetPosition());
+            SetSpawnedMissileProperties(missile as Missile);
+            _leftSpawnCount--;
+        }
+
+        private void SetSpawnedMissileProperties(Missile missile)
         {
             missile.SetTeam(1);
             missile.SetSpeed(1f);
         }
 
-        Vector2 PickRandomSpawnPosition()
+        private Vector2 PickRandomSpawnPosition()
         {
             return Utils.PickRandomPositionFromRange(transform.position, spawnRange);
         }
-        
-        public Vector2 PickRandomTargetPosition()
+
+        private Vector2 PickRandomTargetPosition()
         {
             return Utils.PickRandomPositionFromRange(targetCenterPosition, targetRange);
         }

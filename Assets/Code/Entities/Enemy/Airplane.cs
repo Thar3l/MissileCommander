@@ -32,7 +32,7 @@ namespace Entities.Enemy
             SetLookDirection();
             gameObject.SetActive(true);
             _currentBombCount = _maxBombCount;
-            StartCoroutine(ThrowBomb());
+            StartCoroutine(ThrowBombCoroutine());
         }
 
         private void FixedUpdate()
@@ -40,7 +40,7 @@ namespace Entities.Enemy
             Move();
         }
 
-        IEnumerator ThrowBomb()
+        IEnumerator ThrowBombCoroutine()
         {
             while (CanThrowBombs)
             {
@@ -77,7 +77,7 @@ namespace Entities.Enemy
 
         void Hide()
         {
-            StopCoroutine(ThrowBomb());
+            StopCoroutine(ThrowBombCoroutine());
             gameObject.SetActive(false);
         }
     }

@@ -31,12 +31,12 @@ namespace GameEvents
         private void StartEvents()
         {
             if (_eventList.Count > 0)
-                StartCoroutine(ExecuteEvents());
+                StartCoroutine(ExecuteEventsCoroutine());
         }
 
         private void StopEvents()
         {
-            StopCoroutine(ExecuteEvents());
+            StopCoroutine(ExecuteEventsCoroutine());
         }
 
         private IGameEvent PickRandomEvent()
@@ -47,7 +47,7 @@ namespace GameEvents
             return null;
         }
 
-        private IEnumerator ExecuteEvents()
+        private IEnumerator ExecuteEventsCoroutine()
         {
             while (true)
             {
