@@ -7,7 +7,7 @@ namespace GameUtils
     public class ObjectPooler<T> where T : MonoBehaviour
     {
         private readonly T _prefab;
-        readonly Stack<T> _objects;
+        private readonly Stack<T> _objects;
 
         public delegate void CreateNewInstance(T obj);
         public event CreateNewInstance OnCreateNewInstance;

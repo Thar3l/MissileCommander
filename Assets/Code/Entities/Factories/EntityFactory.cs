@@ -1,6 +1,6 @@
-using System.Collections.Generic;
 using UnityEngine;
 using GameUtils;
+using UnityEngine.Events;
 
 namespace Entities.Factories
 {
@@ -9,10 +9,8 @@ namespace Entities.Factories
         protected readonly ObjectPooler<T> EntityPooler;
         
         #region events
-        public delegate void CreateEntityEvent(T entity);
-        public event CreateEntityEvent OnCreateEntityEvent;
-        public delegate void DestroyEntityEvent(T entity);
-        public event DestroyEntityEvent OnDestroyEntityEvent;
+        public event UnityAction<T> OnCreateEntityEvent;
+        public event UnityAction<T> OnDestroyEntityEvent;
         #endregion
 
         protected EntityFactory(T prefab)

@@ -1,7 +1,5 @@
-﻿using System;
-using Entities.Enemy;
+﻿using Entities.Enemy;
 using UnityEngine;
-using Random = System.Random;
 
 namespace GameEvents
 {

@@ -8,7 +8,7 @@ namespace Entities.Factories{
         
         public UnitFactory(ExplosiveUnit prefab, UnityAction<ExplosiveUnit> spawnExplosionAction) : base(prefab)
         {
-            this._spawnExplosionAction = spawnExplosionAction;
+            _spawnExplosionAction = spawnExplosionAction;
         }
 
         protected override void SetNewEntityProperties(ExplosiveUnit obj)

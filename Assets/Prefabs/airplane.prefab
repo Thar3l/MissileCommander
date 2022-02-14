@@ -144,4 +144,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20e4af157be7b424c9711a3736f54bce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  renderer: {fileID: 750384768106810173}
+  spriteRenderer: {fileID: 750384768106810173}
+  targetCenterPosition: {x: 0, y: -3.97}
+  targetRange: {x: 17.8, y: 0}

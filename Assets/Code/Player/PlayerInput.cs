@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using GameInput;
+using UnityEngine;
 using UnityEngine.Events;
 
 namespace Code.Player

@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using Random = UnityEngine.Random;
 using Entities.Factories;
 using GameUtils;
 
@@ -37,7 +36,7 @@ namespace Entities.Enemy
             GameManager.Instance.OnGameStart += StartSpawn;
             GameManager.Instance.OnGameNewRound += StartSpawn;
             GameManager.Instance.OnGameStop += Stop;
-            _factory = EntityManager.Instance.UnitFactory;
+            _factory = EntityManager.Instance.MissileFactory;
         }
 
         void Stop()

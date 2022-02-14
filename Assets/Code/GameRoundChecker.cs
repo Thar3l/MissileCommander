@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -24,7 +23,7 @@ public class GameRoundChecker
         return listener;
     }
 
-    void ResetListeners()
+    private void ResetListeners()
     {
         foreach (var listener in _listeners)
         {
@@ -32,7 +31,7 @@ public class GameRoundChecker
         }
     }
 
-    bool CheckGameRound()
+    private bool CheckGameRound()
     {
         foreach (var listener in _listeners)
         {
@@ -43,7 +42,7 @@ public class GameRoundChecker
         return true;
     }
 
-    void EndGameRound()
+    private void EndGameRound()
     {
         if (CheckGameRound())
         {

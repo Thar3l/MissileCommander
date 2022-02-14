@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 namespace Entities
@@ -7,11 +6,9 @@ namespace Entities
     {
         private int _team;
 
-        public delegate void HitEntity(Entity entity);
-        public event HitEntity OnHitEntity;
-
-        public delegate void DestroyEntity(Entity entity);
-        public event DestroyEntity OnDestroyEntity;
+        public delegate void EntityAction(Entity entity);
+        public event EntityAction OnHitEntity;
+        public event EntityAction OnDestroyEntity;
     
         public virtual void SetTeam(int team)
         {

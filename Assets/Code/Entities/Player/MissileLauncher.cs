@@ -26,7 +26,7 @@ namespace Entities.Player
         {
             if (CanShoot)
             {
-                var missile = EntityManager.Instance.UnitFactory.CreateUnit(transform.position, targetPosition) as Missile;
+                var missile = EntityManager.Instance.MissileFactory.CreateUnit(transform.position, targetPosition) as Missile;
                 missile.SetTeam(0);
                 missile.SetSpeed(3f);
                 _currentMissileCount--;

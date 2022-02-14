@@ -1,5 +1,3 @@
-using UnityEngine;
-
 namespace UI.Windows
 {
     public class MainMenu : BasicWindow

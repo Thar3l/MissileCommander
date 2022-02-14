@@ -1,25 +1,22 @@
 using System.Collections;
-using System.Collections.Generic;
 using GameUtils;
 using UnityEngine;
-using Random = System.Random;
 
 namespace Entities.Enemy
 {
     public class Airplane : ExplosiveUnit
     {
-        [SerializeField] private SpriteRenderer renderer;
+        [SerializeField] private SpriteRenderer spriteRenderer;
         
         [Header("Bomb Target Position Properties")]
         [SerializeField] private Vector2 targetCenterPosition;
         [SerializeField] private Vector2 targetRange;
         
         private Vector2 _flyPosition;
-
-        private readonly int _maxBombCount = 2;
         private int _currentBombCount = 0;
         private bool CanThrowBombs => _currentBombCount > 0;
-
+        
+        private readonly int _maxBombCount = 2;
         private readonly float _minThrowBombDelay = 1f;
         private readonly float _maxThrowBombDelay = 4f;
 
@@ -48,7 +45,7 @@ namespace Entities.Enemy
             while (CanThrowBombs)
             {
                 yield return new WaitForSeconds(UnityEngine.Random.Range(_minThrowBombDelay, _maxThrowBombDelay));
-                var missile = EntityManager.Instance.UnitFactory.CreateUnit(transform.position, GetBombTargetPosition()) as Missile;
+                var missile = EntityManager.Instance.MissileFactory.CreateUnit(transform.position, GetBombTargetPosition()) as Missile;
                 missile.SetTeam(1);
                 missile.SetSpeed(1f);
                 _currentBombCount--;
@@ -68,16 +65,14 @@ namespace Entities.Enemy
 
         void SetLookDirection()
         {
-            renderer.flipX = GetDirectionToFlyTarget().x < 0;
+            spriteRenderer.flipX = GetDirectionToFlyTarget().x < 0;
         }
 
         void Move()
         {
             transform.position += transform.right * 0.03f * (GetDirectionToFlyTarget().x < 0 ? 1 : -1);
             if (Vector2.Distance(transform.position, _flyPosition) < 0.1f)
-            {
                 Hide();
-            }
         }
 
         void Hide()

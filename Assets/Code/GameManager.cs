@@ -1,21 +1,19 @@
 using System.Collections;
+using Entities;
 using GameUtils;
+using Player;
 using UI;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class GameManager : Singleton<GameManager>
 {
     public GameRoundChecker GameRoundChecker;
     
     #region events
-    public delegate void GameStart();
-    public event GameStart OnGameStart;
-    
-    public delegate void GameNewRound();
-    public event GameNewRound OnGameNewRound;
-    
-    public delegate void GameStop();
-    public event GameStop OnGameStop;
+    public event UnityAction OnGameStart;
+    public event UnityAction OnGameNewRound;
+    public event UnityAction OnGameStop;
     #endregion
     
     private void Awake()
