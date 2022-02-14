@@ -45,11 +45,17 @@ namespace Entities.Enemy
             while (CanThrowBombs)
             {
                 yield return new WaitForSeconds(UnityEngine.Random.Range(_minThrowBombDelay, _maxThrowBombDelay));
-                var missile = EntityManager.Instance.MissileFactory.CreateUnit(transform.position, GetBombTargetPosition()) as Missile;
-                missile.SetTeam(1);
-                missile.SetSpeed(1f);
-                _currentBombCount--;
+                ThrowBomb();
             }
+        }
+
+        private void ThrowBomb()
+        {
+            var missile =
+                EntityManager.Instance.MissileFactory.CreateUnit(transform.position, GetBombTargetPosition()) as Missile;
+            missile.SetTeam(1);
+            missile.SetSpeed(1f);
+            _currentBombCount--;
         }
 
         Vector2 GetBombTargetPosition()
