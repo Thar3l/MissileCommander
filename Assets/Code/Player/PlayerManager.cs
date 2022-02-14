@@ -15,11 +15,11 @@ namespace Player
             _playerInput = new PlayerInput(playerBuildings.ShootMissileLauncher);
             GameManager.Instance.OnGameStart += playerBuildings.RefreshMissileLaunchers;
             GameManager.Instance.OnGameStart += playerBuildings.RefreshCities;
-            GameManager.Instance.OnGameNewRound += StartNewRound;
+            GameManager.Instance.OnGameNewRound += PreparePlayerForNewRound;
             return true;
         }
 
-        void StartNewRound()
+        private void PreparePlayerForNewRound()
         {
             GivePointsForPreviousRound();
             playerBuildings.RefreshMissileLaunchers();
@@ -30,7 +30,7 @@ namespace Player
             GameManager.Instance.StopGame();
         }
 
-        void GivePointsForPreviousRound()
+        private void GivePointsForPreviousRound()
         {
             var leftCitiesCount = playerBuildings.GetLeftCities().Count;
             var leftLaunchersCount = playerBuildings.GetLeftMissileLaunchers().Count;

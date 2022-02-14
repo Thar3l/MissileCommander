@@ -17,7 +17,7 @@ namespace Code.Player
         public UnityAction OnAllCitiesDestroyed;
 
 
-        void Awake()
+        private void Awake()
         {
             _buildingList = new List<Entity>();
         }
@@ -47,7 +47,7 @@ namespace Code.Player
             }
         }
 
-        void SpawnMissileLaunchers()
+        private void SpawnMissileLaunchers()
         {
             buildingsHelper.Spawn(
                 buildingsHelper.missileLauncherPrefab,
@@ -56,7 +56,7 @@ namespace Code.Player
                 ref _buildingList);
         }
 
-        MissileLauncher GetNearestMissileLauncherToPoint(Vector3 point)
+        private MissileLauncher GetNearestMissileLauncherToPoint(Vector3 point)
         {
             MissileLauncher nearestLauncher = null;
             float lastDistance = 0;
@@ -96,7 +96,7 @@ namespace Code.Player
                 city.gameObject.SetActive(true);
         }
 
-        void SpawnCities()
+        private void SpawnCities()
         {
             buildingsHelper.Spawn(
                 buildingsHelper.cityPrefab,
@@ -107,7 +107,7 @@ namespace Code.Player
             BindCityOnDieEvent();
         }
 
-        void CityDestroy()
+        private void CityDestroy()
         {
             var leftCitiesCount = GetLeftCities().Count;
             if (leftCitiesCount < 1)
